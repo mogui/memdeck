@@ -215,8 +215,9 @@ nav a.active {
     gap: 15px;
     margin: 20px 0;
     padding: 15px;
-    background: #f8f9fa;
+    background: #e9ecef;
     border-radius: 8px;
+    color: #212529;
 }
 
 .quiz-types div {
