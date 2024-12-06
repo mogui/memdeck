@@ -138,8 +138,37 @@ nav a.active {
 .quiz-types {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.quiz-types div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quiz-types input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.quiz-types label {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#nextQuizBtn {
+    margin-top: 10px;
+    background-color: #28a745;
+}
+
+#nextQuizBtn:hover {
+    background-color: #218838;
 }
 
 button {

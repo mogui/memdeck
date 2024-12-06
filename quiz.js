@@ -9,6 +9,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+function startNextQuiz() {
+    const availableQuizTypes = [];
+    if (document.getElementById('positionQuiz').checked) availableQuizTypes.push('position');
+    if (document.getElementById('cardQuiz').checked) availableQuizTypes.push('card');
+    if (document.getElementById('cutQuiz').checked) availableQuizTypes.push('cut');
+
+    if (availableQuizTypes.length === 0) {
+        alert('Please select at least one quiz type');
+        return;
+    }
+
+    const randomType = availableQuizTypes[Math.floor(Math.random() * availableQuizTypes.length)];
+    startQuiz(randomType);
+    
+    // Change button text after first quiz starts
+    document.getElementById('nextQuizBtn').textContent = 'Next Quiz';
+}
+
 // Start a new quiz
 function startQuiz(type) {
     currentQuiz = type;
