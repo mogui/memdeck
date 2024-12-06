@@ -152,8 +152,11 @@ function checkAnswer(selected, correct) {
     if (selected === correct) {
         resultElement.textContent = 'Correct!';
         resultElement.className = 'correct';
+        setTimeout(() => {
+            startNextQuiz();
+        }, 1000);
     } else {
-        resultElement.textContent = `Incorrect. The correct answer is ${correct}`;
+        resultElement.textContent = 'Incorrect. Try again!';
         resultElement.className = 'incorrect';
     }
 }
