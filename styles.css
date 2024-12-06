@@ -198,13 +198,14 @@ nav a.active {
     top: -25px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.9);
+    background: #ffffff;
     color: black;
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 16px;
     font-weight: bold;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .card {
