@@ -112,7 +112,7 @@ function displayQuiz(question, options) {
     options.forEach(option => {
         const button = document.createElement('button');
         if (currentQuiz === 'position' || currentQuiz === 'cut') {
-            button.innerHTML = `<img src="${cardImages[option]}" alt="${option}" style="height: 50px; vertical-align: middle;">`;
+            button.innerHTML = `<img src="${cardImages[option]}" alt="${option}" style="height: 150px; vertical-align: middle;">`;
         } else {
             button.textContent = option;
         }
