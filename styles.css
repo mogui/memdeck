@@ -38,6 +38,27 @@ h1 {
     gap: 20px;
 }
 
+@media (max-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+    
+    button {
+        padding: 15px 20px; /* Larger touch targets */
+        margin: 5px 0;
+    }
+    
+    #stackSelect {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+}
+
 .stack-display {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -46,6 +67,19 @@ h1 {
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+    .stack-display {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        padding: 10px;
+        gap: 5px;
+    }
+    
+    .card {
+        font-size: 14px;
+    }
 }
 
 .card {
@@ -101,6 +135,27 @@ button:hover {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .quiz-section {
+        padding: 15px;
+    }
+    
+    #question {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+    
+    #result {
+        font-size: 14px;
+        padding: 12px;
+    }
+    
+    #options button {
+        width: 100%;
+        margin: 5px 0;
+    }
 }
 
 #result {
