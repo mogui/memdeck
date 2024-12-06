@@ -54,7 +54,12 @@ function startQuiz(type) {
             break;
         case 'card':
             const randomCard = stack[Math.floor(Math.random() * stack.length)];
-            question = `At which position is <img src="${cardImages[randomCard]}" alt="${randomCard}">?`;
+            const questionText = document.createElement('span');
+            questionText.textContent = 'At which position is ';
+            const cardImage = document.createElement('img');
+            cardImage.src = cardImages[randomCard];
+            cardImage.alt = randomCard;
+            question = [questionText, cardImage, document.createTextNode('?')];
             options = generatePositionOptions(stack.indexOf(randomCard) + 1, stack.length);
             break;
         case 'cut':
@@ -120,7 +125,12 @@ function displayQuiz(question, options) {
     const optionsElement = document.getElementById('options');
     const resultElement = document.getElementById('result');
 
-    questionElement.textContent = question;
+    questionElement.innerHTML = '';
+    if (Array.isArray(question)) {
+        question.forEach(element => questionElement.appendChild(element));
+    } else {
+        questionElement.textContent = question;
+    }
     optionsElement.innerHTML = '';
     resultElement.innerHTML = '';
 
