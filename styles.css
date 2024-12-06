@@ -193,9 +193,13 @@ nav a.active {
     object-position: center;
 }
 
+.card {
+    margin-top: 30px;
+}
+
 .card .position {
     position: absolute;
-    top: -25px;
+    top: -30px;
     left: 50%;
     transform: translateX(-50%);
     background: #ffffff;
@@ -206,10 +210,7 @@ nav a.active {
     font-weight: bold;
     border: 1px solid #ccc;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-.card {
-    margin-top: 25px;
+    z-index: 1;
 }
 
 .quiz-section {
