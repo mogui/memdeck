@@ -2,7 +2,18 @@ let currentStack = 'mnemonica';
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
+    // Load settings
+    const settings = loadSettings();
+    currentStack = settings.stack;
+    
+    // Display initial stack
     displayStack(currentStack);
+    
+    // Update current stack display
+    const currentStackDisplay = document.getElementById('currentStack');
+    if (currentStackDisplay) {
+        currentStackDisplay.textContent = `Current Stack: ${currentStack}`;
+    }
     
     // Add event listener for stack selection
     document.getElementById('stackSelect').addEventListener('change', (e) => {
@@ -23,6 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // Display the selected stack
 function displayStack(stackName) {
     const stackDisplay = document.querySelector('.stack-display');
+    if (!stackDisplay) return;
+    
     stackDisplay.innerHTML = '';
     
     cardStacks[stackName].forEach((card, index) => {
@@ -41,4 +54,24 @@ function displayStack(stackName) {
         cardDiv.appendChild(imageDiv);
         stackDisplay.appendChild(cardDiv);
     });
+}
+
+// Listen for settings changes from other windows
+window.addEventListener('storage', (e) => {
+    if (e.key === 'memdeckSettings') {
+        const settings = JSON.parse(e.newValue);
+        currentStack = settings.stack;
+        displayStack(currentStack);
+        
+        // Update current stack display
+        const currentStackDisplay = document.getElementById('currentStack');
+        if (currentStackDisplay) {
+            currentStackDisplay.textContent = `Current Stack: ${currentStack}`;
+        }
+    }
+});
+
+function loadSettings() {
+    const settings = localStorage.getItem('memdeckSettings');
+    return settings ? JSON.parse(settings) : { stack: 'mnemonica', quizTypes: { position: true, card: true, cut: true } };
 }

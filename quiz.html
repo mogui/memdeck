@@ -13,35 +13,9 @@
             <nav>
                 <a href="index.html">Stack View</a>
                 <a href="quiz.html" class="active">Practice Quiz</a>
+                <a href="settings.html">Settings</a>
             </nav>
-            <div class="stack-controls">
-                <div class="settings-group">
-                    <select id="stackSelect">
-                        <option value="mnemonica">Mnemonica Stack</option>
-                        <option value="aronson">Aronson Stack</option>
-                        <option value="redford">Redford Stack</option>
-                    </select>
-                </div>
-                <div class="settings-group accordion">
-                    <button class="accordion-header">Quiz Settings</button>
-                    <div class="accordion-content">
-                        <div class="quiz-types">
-                            <div>
-                                <input type="checkbox" id="positionQuiz" checked>
-                                <label for="positionQuiz">Position Quiz</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="cardQuiz" checked>
-                                <label for="cardQuiz">Card Quiz</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="cutQuiz" checked>
-                                <label for="cutQuiz">Cut Point Quiz</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="currentStack"></div>
         </header>
 
         <div class="quiz-section">
@@ -57,5 +31,6 @@
     <script src="stacks.js"></script>
     <script src="cardImages.js"></script>
     <script src="quiz.js"></script>
+    <script src="settings.js"></script>
 </body>
 </html>

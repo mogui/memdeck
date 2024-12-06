@@ -3,33 +3,50 @@ let currentQuiz = null;
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
+    // Load settings
+    const settings = loadSettings();
+    currentStack = settings.stack;
+
+    // Update current stack display
+    const currentStackDisplay = document.getElementById('currentStack');
+    if (currentStackDisplay) {
+        currentStackDisplay.textContent = `Current Stack: ${currentStack}`;
+    }
+
     // Add event listener for stack selection
-    document.getElementById('stackSelect').addEventListener('change', (e) => {
-        currentStack = e.target.value;
-    });
+    const stackSelect = document.getElementById('stackSelect');
+    if (stackSelect) {
+        stackSelect.addEventListener('change', (e) => {
+            currentStack = e.target.value;
+        });
+    }
 
     // Setup accordion
     const acc = document.querySelector('.accordion-header');
     const panel = document.querySelector('.accordion-content');
     
-    acc.addEventListener('click', function() {
-        this.classList.toggle('active');
-        panel.classList.toggle('active');
-    });
+    if (acc && panel) {
+        acc.addEventListener('click', function() {
+            this.classList.toggle('active');
+            panel.classList.toggle('active');
+        });
 
-    // Open accordion by default on quiz page
-    acc.classList.add('active');
-    panel.classList.add('active');
+        // Open accordion by default on quiz page
+        acc.classList.add('active');
+        panel.classList.add('active');
+    }
 });
 
 function startNextQuiz() {
+    // Load current settings
+    const settings = loadSettings();
     const availableQuizTypes = [];
-    if (document.getElementById('positionQuiz').checked) availableQuizTypes.push('position');
-    if (document.getElementById('cardQuiz').checked) availableQuizTypes.push('card');
-    if (document.getElementById('cutQuiz').checked) availableQuizTypes.push('cut');
+    if (settings.quizTypes.position) availableQuizTypes.push('position');
+    if (settings.quizTypes.card) availableQuizTypes.push('card');
+    if (settings.quizTypes.cut) availableQuizTypes.push('cut');
 
     if (availableQuizTypes.length === 0) {
-        alert('Please select at least one quiz type');
+        alert('Please enable at least one quiz type in Settings');
         return;
     }
 
@@ -37,7 +54,10 @@ function startNextQuiz() {
     startQuiz(randomType);
     
     // Change button text after first quiz starts
-    document.getElementById('nextQuizBtn').textContent = 'Next Quiz';
+    const nextQuizBtn = document.getElementById('nextQuizBtn');
+    if (nextQuizBtn) {
+        nextQuizBtn.textContent = 'Next Quiz';
+    }
 }
 
 // Start a new quiz
@@ -168,4 +188,9 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+}
+
+function loadSettings() {
+    const settings = localStorage.getItem('memdeckSettings');
+    return settings ? JSON.parse(settings) : { stack: 'mnemonica', quizTypes: { position: true, card: true, cut: true } };
 }
