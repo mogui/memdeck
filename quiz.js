@@ -12,29 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentStackDisplay) {
         currentStackDisplay.textContent = `Current Stack: ${currentStack}`;
     }
-
-    // Add event listener for stack selection
-    const stackSelect = document.getElementById('stackSelect');
-    if (stackSelect) {
-        stackSelect.addEventListener('change', (e) => {
-            currentStack = e.target.value;
-        });
-    }
-
-    // Setup accordion
-    const acc = document.querySelector('.accordion-header');
-    const panel = document.querySelector('.accordion-content');
-    
-    if (acc && panel) {
-        acc.addEventListener('click', function() {
-            this.classList.toggle('active');
-            panel.classList.toggle('active');
-        });
-
-        // Open accordion by default on quiz page
-        acc.classList.add('active');
-        panel.classList.add('active');
-    }
 });
 
 function startNextQuiz() {
@@ -63,8 +40,20 @@ function startNextQuiz() {
 // Start a new quiz
 function startQuiz(type) {
     currentQuiz = type;
+    const settings = loadSettings();
+    currentStack = settings.stack;
     const stack = cardStacks[currentStack];
     let question, options, correctAnswer;
+
+    const quizContainer = document.getElementById('quizContainer');
+    const questionElement = document.getElementById('question');
+    const optionsElement = document.getElementById('options');
+    const resultElement = document.getElementById('result');
+
+    if (!quizContainer || !questionElement || !optionsElement || !resultElement) {
+        console.error('Quiz elements not found');
+        return;
+    }
 
     switch(type) {
         case 'position':
@@ -147,29 +136,49 @@ function displayQuiz(question, options, correctAnswer) {
     const optionsElement = document.getElementById('options');
     const resultElement = document.getElementById('result');
 
+    if (!quizContainer || !questionElement || !optionsElement || !resultElement) {
+        console.error('Quiz elements not found in displayQuiz');
+        return;
+    }
+
+    // Clear previous content
     questionElement.innerHTML = '';
+    optionsElement.innerHTML = '';
+    resultElement.innerHTML = '';
+
+    // Display question
     if (Array.isArray(question)) {
         question.forEach(element => questionElement.appendChild(element));
     } else {
         questionElement.textContent = question;
     }
-    optionsElement.innerHTML = '';
-    resultElement.innerHTML = '';
 
-    options.forEach(option => {
+    // Create and display options
+    options.forEach((option, index) => {
         const button = document.createElement('button');
+        button.className = 'quiz-option';
         if (currentQuiz === 'position' || currentQuiz === 'cut') {
-            button.innerHTML = `<img src="${cardImages[option]}" alt="${option}" style="height: 150px; vertical-align: middle;">`;
+            const img = document.createElement('img');
+            img.src = cardImages[option];
+            img.alt = option;
+            img.style.height = '150px';
+            img.style.verticalAlign = 'middle';
+            button.appendChild(img);
         } else {
             button.textContent = option;
         }
-        button.onclick = () => checkAnswer(option, correctAnswer);
+        button.addEventListener('click', () => checkAnswer(option, correctAnswer));
         optionsElement.appendChild(button);
     });
+
+    // Make sure the quiz container is visible
+    quizContainer.style.display = 'block';
 }
 
 function checkAnswer(selected, correct) {
     const resultElement = document.getElementById('result');
+    if (!resultElement) return;
+
     if (selected === correct) {
         resultElement.textContent = 'Correct!';
         resultElement.className = 'correct';
