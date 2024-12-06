@@ -28,6 +28,12 @@ h1 {
 
 .stack-controls {
     margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.stack-controls > div {
+    flex: 1;
 }
 
 #stackSelect {
@@ -36,6 +42,10 @@ h1 {
     border-radius: 4px;
     margin-bottom: 10px;
     width: 100%;
+}
+
+.settings-group {
+    flex: 1;
 }
 
 .accordion {
@@ -107,6 +117,11 @@ nav a.active {
 }
 
 @media (max-width: 768px) {
+    .stack-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+
     nav {
         display: flex;
         gap: 10px;
