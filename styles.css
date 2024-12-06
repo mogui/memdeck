@@ -54,7 +54,9 @@ h1 {
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
-
+.accordion button{
+    color: #000;
+}
 .accordion-header {
     background-color: #f8f9fa;
     padding: 10px 15px;
