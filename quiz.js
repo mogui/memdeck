@@ -44,13 +44,14 @@ function startNextQuiz() {
 function startQuiz(type) {
     currentQuiz = type;
     const stack = cardStacks[currentStack];
-    let question, options;
+    let question, options, correctAnswer;
 
     switch(type) {
         case 'position':
             const randomPosition = Math.floor(Math.random() * stack.length) + 1;
             question = `Which card is at position ${randomPosition}?`;
-            options = generateOptions(stack[randomPosition - 1], stack);
+            correctAnswer = stack[randomPosition - 1];
+            options = generateOptions(correctAnswer, stack);
             break;
         case 'card':
             const randomCard = stack[Math.floor(Math.random() * stack.length)];
@@ -61,17 +62,21 @@ function startQuiz(type) {
             cardImage.alt = randomCard;
             cardImage.style.height = '150px';
             question = [questionText, cardImage, document.createTextNode('?')];
-            options = generatePositionOptions(stack.indexOf(randomCard) + 1, stack.length);
+            correctAnswer = stack.indexOf(randomCard) + 1;
+            options = generatePositionOptions(correctAnswer, stack.length);
             break;
         case 'cut':
             const targetCard = stack[Math.floor(Math.random() * stack.length)];
             const targetPosition = Math.floor(Math.random() * stack.length) + 1;
             question = `Where should you cut to get the ${targetCard} to position ${targetPosition}?`;
-            options = generateCutOptions(stack, targetCard, targetPosition);
+            const currentPosition = stack.indexOf(targetCard) + 1;
+            const correctCutPosition = calculateCutPoint(currentPosition, targetPosition, stack.length);
+            correctAnswer = stack[correctCutPosition - 1];
+            options = generateCutOptions(correctAnswer, stack);
             break;
     }
 
-    displayQuiz(question, options);
+    displayQuiz(question, options, correctAnswer);
 }
 
 function generateOptions(correctAnswer, stack) {
@@ -96,12 +101,8 @@ function generatePositionOptions(correctPosition, maxPosition) {
     return shuffleArray(options);
 }
 
-function generateCutOptions(stack, targetCard, targetPosition) {
-    const currentPosition = stack.indexOf(targetCard) + 1;
-    const correctCutPosition = calculateCutPoint(currentPosition, targetPosition, stack.length);
-    const correctCutCard = stack[correctCutPosition - 1];
-    
-    let options = [correctCutCard];
+function generateCutOptions(correctAnswer, stack) {
+    let options = [correctAnswer];
     while (options.length < 4) {
         const randomPosition = Math.floor(Math.random() * stack.length);
         const randomCard = stack[randomPosition];
@@ -120,7 +121,7 @@ function calculateCutPoint(currentPos, targetPos, deckSize) {
     }
 }
 
-function displayQuiz(question, options) {
+function displayQuiz(question, options, correctAnswer) {
     const quizContainer = document.getElementById('quizContainer');
     const questionElement = document.getElementById('question');
     const optionsElement = document.getElementById('options');
@@ -142,7 +143,7 @@ function displayQuiz(question, options) {
         } else {
             button.textContent = option;
         }
-        button.onclick = () => checkAnswer(option, options[0]);
+        button.onclick = () => checkAnswer(option, correctAnswer);
         optionsElement.appendChild(button);
     });
 }
