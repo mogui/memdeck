@@ -79,13 +79,15 @@ function generatePositionOptions(correctPosition, maxPosition) {
 
 function generateCutOptions(stack, targetCard, targetPosition) {
     const currentPosition = stack.indexOf(targetCard) + 1;
-    const correctCut = calculateCutPoint(currentPosition, targetPosition, stack.length);
+    const correctCutPosition = calculateCutPoint(currentPosition, targetPosition, stack.length);
+    const correctCutCard = stack[correctCutPosition - 1];
     
-    let options = [correctCut];
+    let options = [correctCutCard];
     while (options.length < 4) {
-        const randomCut = Math.floor(Math.random() * stack.length) + 1;
-        if (!options.includes(randomCut)) {
-            options.push(randomCut);
+        const randomPosition = Math.floor(Math.random() * stack.length);
+        const randomCard = stack[randomPosition];
+        if (!options.includes(randomCard)) {
+            options.push(randomCard);
         }
     }
     return shuffleArray(options);
