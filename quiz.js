@@ -7,6 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('stackSelect').addEventListener('change', (e) => {
         currentStack = e.target.value;
     });
+
+    // Setup accordion
+    const acc = document.querySelector('.accordion-header');
+    const panel = document.querySelector('.accordion-content');
+    
+    acc.addEventListener('click', function() {
+        this.classList.toggle('active');
+        panel.classList.toggle('active');
+    });
+
+    // Open accordion by default on quiz page
+    acc.classList.add('active');
+    panel.classList.add('active');
 });
 
 function startNextQuiz() {

@@ -26,10 +26,65 @@ h1 {
     margin-bottom: 20px;
 }
 
+.stack-controls {
+    margin-bottom: 20px;
+}
+
 #stackSelect {
     padding: 8px 16px;
     font-size: 16px;
     border-radius: 4px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.accordion {
+    background-color: white;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.accordion-header {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+}
+
+.accordion-header:after {
+    content: '+';
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.accordion-header.active:after {
+    content: '-';
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: white;
+}
+
+.accordion-content.active {
+    max-height: 200px;
+    padding: 15px;
+}
+
+.quiz-types {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 nav {

@@ -14,11 +14,32 @@
                 <a href="index.html" class="active">Stack View</a>
                 <a href="quiz.html">Practice Quiz</a>
             </nav>
-            <select id="stackSelect">
-                <option value="mnemonica">Mnemonica Stack</option>
-                <option value="aronson">Aronson Stack</option>
-                <option value="redford">Redford Stack</option>
-            </select>
+            <div class="stack-controls">
+                <select id="stackSelect">
+                    <option value="mnemonica">Mnemonica Stack</option>
+                    <option value="aronson">Aronson Stack</option>
+                    <option value="redford">Redford Stack</option>
+                </select>
+                <div class="accordion">
+                    <button class="accordion-header">Quiz Settings</button>
+                    <div class="accordion-content">
+                        <div class="quiz-types">
+                            <div>
+                                <input type="checkbox" id="positionQuiz" checked disabled>
+                                <label for="positionQuiz">Position Quiz</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="cardQuiz" checked disabled>
+                                <label for="cardQuiz">Card Quiz</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="cutQuiz" checked disabled>
+                                <label for="cutQuiz">Cut Point Quiz</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </header>
 
         <div class="stack-display">

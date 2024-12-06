@@ -9,6 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
         currentStack = e.target.value;
         displayStack(currentStack);
     });
+
+    // Setup accordion
+    const acc = document.querySelector('.accordion-header');
+    const panel = document.querySelector('.accordion-content');
+    
+    acc.addEventListener('click', function() {
+        this.classList.toggle('active');
+        panel.classList.toggle('active');
+    });
 });
 
 // Display the selected stack
