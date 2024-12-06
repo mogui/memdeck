@@ -270,6 +270,13 @@ button:hover {
 #question {
     font-size: 18px;
     margin-bottom: 15px;
+    text-align: center;
+}
+
+#question img {
+    height: 40px;
+    vertical-align: middle;
+    margin: 0 5px;
 }
 
 #options {

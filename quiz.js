@@ -54,7 +54,7 @@ function startQuiz(type) {
             break;
         case 'card':
             const randomCard = stack[Math.floor(Math.random() * stack.length)];
-            question = `At which position is the ${randomCard}?`;
+            question = `At which position is <img src="${cardImages[randomCard]}" alt="${randomCard}">?`;
             options = generatePositionOptions(stack.indexOf(randomCard) + 1, stack.length);
             break;
         case 'cut':
