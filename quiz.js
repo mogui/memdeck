@@ -167,7 +167,30 @@ function displayQuiz(question, options, correctAnswer) {
         } else {
             button.textContent = option;
         }
-        button.addEventListener('click', () => checkAnswer(option, correctAnswer));
+        
+        // Use touchend for mobile and click for desktop
+        const handleSelection = (e) => {
+            e.preventDefault(); // Prevent default touch behavior
+            
+            // Remove selected class from all buttons
+            optionsElement.querySelectorAll('.quiz-option').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked button
+            button.classList.add('selected');
+            
+            // Check answer after a short delay
+            setTimeout(() => {
+                checkAnswer(option, correctAnswer);
+                // Remove selected class after checking
+                button.classList.remove('selected');
+            }, 100);
+        };
+        
+        button.addEventListener('touchend', handleSelection, { passive: false });
+        button.addEventListener('click', handleSelection);
+        
         optionsElement.appendChild(button);
     });
 
@@ -183,6 +206,10 @@ function checkAnswer(selected, correct) {
         resultElement.textContent = 'Correct!';
         resultElement.className = 'correct';
         setTimeout(() => {
+            // Remove any remaining selected states before starting next quiz
+            document.querySelectorAll('.quiz-option').forEach(btn => {
+                btn.classList.remove('selected');
+            });
             startNextQuiz();
         }, 1000);
     } else {

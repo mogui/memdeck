@@ -269,9 +269,23 @@ nav a.active {
     display: flex;
     align-items: center;
     justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
 }
 
 .quiz-option:hover {
+    background: #3498db;
+    color: white;
+}
+
+.quiz-option:active {
+    background: white;
+    color: #2c3e50;
+}
+
+.quiz-option.selected {
     background: #3498db;
     color: white;
 }
