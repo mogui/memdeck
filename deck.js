@@ -28,10 +28,17 @@ function displayStack(stackName) {
     cardStacks[stackName].forEach((card, index) => {
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
-        cardDiv.innerHTML = `
-            <div class="position">${index + 1}</div>
-            <img src="${cardImages[card]}" alt="${card}" style="border-radius: 8px;">
-        `;
+        const positionDiv = document.createElement('div');
+        positionDiv.className = 'position';
+        positionDiv.textContent = index + 1;
+        const imageDiv = document.createElement('div');
+        imageDiv.className = 'card-image';
+        const img = document.createElement('img');
+        img.src = cardImages[card];
+        img.alt = card;
+        imageDiv.appendChild(img);
+        cardDiv.appendChild(positionDiv);
+        cardDiv.appendChild(imageDiv);
         stackDisplay.appendChild(cardDiv);
     });
 }
