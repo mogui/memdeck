@@ -59,6 +59,7 @@ function startQuiz(type) {
             const cardImage = document.createElement('img');
             cardImage.src = cardImages[randomCard];
             cardImage.alt = randomCard;
+            cardImage.style.height = '150px';
             question = [questionText, cardImage, document.createTextNode('?')];
             options = generatePositionOptions(stack.indexOf(randomCard) + 1, stack.length);
             break;
