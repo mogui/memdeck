@@ -21,7 +21,7 @@ function displayStack(stackName) {
         cardDiv.className = 'card';
         cardDiv.innerHTML = `
             <div class="position">${index + 1}</div>
-            <div class="value">${card}</div>
+            <img src="${cardImages[card]}" alt="${card}">
         `;
         stackDisplay.appendChild(cardDiv);
     });

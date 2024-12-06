@@ -93,7 +93,11 @@ function displayQuiz(question, options) {
 
     options.forEach(option => {
         const button = document.createElement('button');
-        button.textContent = option;
+        if (currentQuiz === 'position' || currentQuiz === 'cut') {
+            button.innerHTML = `<img src="${cardImages[option]}" alt="${option}" style="height: 50px; vertical-align: middle;">`;
+        } else {
+            button.textContent = option;
+        }
         button.onclick = () => checkAnswer(option, options[0]);
         optionsElement.appendChild(button);
     });
