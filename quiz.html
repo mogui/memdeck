@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Memdeck Trainer - Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Memdeck Trainer</h1>
+            <nav>
+                <a href="index.html">Stack View</a>
+                <a href="quiz.html" class="active">Practice Quiz</a>
+            </nav>
+            <select id="stackSelect">
+                <option value="mnemonica">Mnemonica Stack</option>
+                <option value="aronson">Aronson Stack</option>
+                <option value="redford">Redford Stack</option>
+            </select>
+        </header>
+
+        <div class="quiz-section">
+            <h2>Practice Quiz</h2>
+            <div class="quiz-types">
+                <button onclick="startQuiz('position')">Position Quiz</button>
+                <button onclick="startQuiz('card')">Card Quiz</button>
+                <button onclick="startQuiz('cut')">Cut Point Quiz</button>
+            </div>
+            <div id="quizContainer" class="quiz-container">
+                <div id="question"></div>
+                <div id="options"></div>
+                <div id="result"></div>
+            </div>
+        </div>
+    </div>
+    <script src="stacks.js"></script>
+    <script src="quiz.js"></script>
+</body>
+</html>

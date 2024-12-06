@@ -32,15 +32,34 @@ h1 {
     border-radius: 4px;
 }
 
-.main-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
+nav {
+    margin: 20px 0;
+}
+
+nav a {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #3498db;
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    margin: 0 5px;
+}
+
+nav a.active {
+    background-color: #3498db;
+    color: white;
 }
 
 @media (max-width: 768px) {
-    .main-content {
-        grid-template-columns: 1fr;
+    nav {
+        display: flex;
+        gap: 10px;
+    }
+    
+    nav a {
+        flex: 1;
+        text-align: center;
     }
     
     .container {
