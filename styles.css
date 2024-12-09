@@ -376,6 +376,34 @@ nav a.active {
     cursor: pointer;
 }
 
+.deck-portions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+    padding: 15px;
+    background: #e9ecef;
+    border-radius: 8px;
+    color: #212529;
+}
+
+.deck-portions div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.deck-portions input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.deck-portions label {
+    font-size: 16px;
+    cursor: pointer;
+}
+
 button {
     padding: 10px 20px;
     font-size: 16px;

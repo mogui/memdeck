@@ -4,6 +4,10 @@ function saveSettings() {
     const positionQuiz = document.getElementById('positionQuiz');
     const cardQuiz = document.getElementById('cardQuiz');
     const cutQuiz = document.getElementById('cutQuiz');
+    const portion1 = document.getElementById('portion1');
+    const portion2 = document.getElementById('portion2');
+    const portion3 = document.getElementById('portion3');
+    const portion4 = document.getElementById('portion4');
 
     // Only save if we're on the settings page
     if (stackSelect && positionQuiz && cardQuiz && cutQuiz) {
@@ -13,9 +17,19 @@ function saveSettings() {
                 position: positionQuiz.checked,
                 card: cardQuiz.checked,
                 cut: cutQuiz.checked
+            },
+            deckPortions: {
+                portion1: portion1.checked,
+                portion2: portion2.checked,
+                portion3: portion3.checked,
+                portion4: portion4.checked
             }
         };
+        console.log('Saving settings:', settings); // Debug log
         localStorage.setItem('memdeckSettings', JSON.stringify(settings));
+
+        // Debug log to confirm save
+        console.log('Settings saved to localStorage.');
 
         // Find other open windows
         const windows = JSON.parse(localStorage.getItem('memdeckWindows') || '[]');
@@ -47,20 +61,40 @@ function loadSettings() {
             position: true,
             card: true,
             cut: true
+        },
+        deckPortions: {
+            portion1: true,
+            portion2: true,
+            portion3: true,
+            portion4: true
         }
     };
+    console.log('Loaded settings:', settings); // Debug log
 
     // Only update form elements if they exist (we're on settings page)
     const stackSelect = document.getElementById('stackSelect');
     const positionQuiz = document.getElementById('positionQuiz');
     const cardQuiz = document.getElementById('cardQuiz');
     const cutQuiz = document.getElementById('cutQuiz');
+    const portion1 = document.getElementById('portion1');
+    const portion2 = document.getElementById('portion2');
+    const portion3 = document.getElementById('portion3');
+    const portion4 = document.getElementById('portion4');
 
     if (stackSelect && positionQuiz && cardQuiz && cutQuiz) {
         stackSelect.value = settings.stack;
         positionQuiz.checked = settings.quizTypes.position;
         cardQuiz.checked = settings.quizTypes.card;
         cutQuiz.checked = settings.quizTypes.cut;
+        
+        try {
+            portion1.checked = settings.deckPortions.portion1;
+            portion2.checked = settings.deckPortions.portion2;
+            portion3.checked = settings.deckPortions.portion3;
+            portion4.checked = settings.deckPortions.portion4;
+        } catch (e) {
+            console.error('Error updating settings checkboxes:', e);
+        }
     }
 
     return settings;
@@ -93,12 +127,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const positionQuiz = document.getElementById('positionQuiz');
     const cardQuiz = document.getElementById('cardQuiz');
     const cutQuiz = document.getElementById('cutQuiz');
+    const portion1 = document.getElementById('portion1');
+    const portion2 = document.getElementById('portion2');
+    const portion3 = document.getElementById('portion3');
+    const portion4 = document.getElementById('portion4');
 
     if (stackSelect && positionQuiz && cardQuiz && cutQuiz) {
         stackSelect.addEventListener('change', saveSettings);
         positionQuiz.addEventListener('change', saveSettings);
         cardQuiz.addEventListener('change', saveSettings);
         cutQuiz.addEventListener('change', saveSettings);
+        portion1.addEventListener('change', saveSettings);
+        portion2.addEventListener('change', saveSettings);
+        portion3.addEventListener('change', saveSettings);
+        portion4.addEventListener('change', saveSettings);
     }
 });
 

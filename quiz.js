@@ -41,8 +41,30 @@ function startNextQuiz() {
 function startQuiz(type) {
     currentQuiz = type;
     const settings = loadSettings();
+    console.log('Loaded settings in startQuiz:', settings); // Debug log
     currentStack = settings.stack;
-    const stack = cardStacks[currentStack];
+    const fullStack = cardStacks[currentStack];
+    
+    // Get the enabled portions
+    const enabledRanges = [];
+    if (settings.deckPortions.portion1) enabledRanges.push([0, 13]);
+    if (settings.deckPortions.portion2) enabledRanges.push([13, 26]);
+    if (settings.deckPortions.portion3) enabledRanges.push([26, 39]);
+    if (settings.deckPortions.portion4) enabledRanges.push([39, 52]);
+
+    console.log('Enabled ranges:', enabledRanges); // Debug log
+
+    // Create a stack with only the enabled portions
+    const stack = [];
+    enabledRanges.forEach(([start, end]) => {
+        stack.push(...fullStack.slice(start, end));
+    });
+
+    if (stack.length === 0) {
+        alert('Please enable at least one deck portion in Settings');
+        return;
+    }
+
     let question, options, correctAnswer;
 
     const quizContainer = document.getElementById('quizContainer');
@@ -58,7 +80,13 @@ function startQuiz(type) {
     switch(type) {
         case 'position':
             const randomPosition = Math.floor(Math.random() * stack.length) + 1;
-            question = `Which card is at position ${randomPosition}?`;
+            const actualPosition = enabledRanges.reduce((pos, [start, end]) => {
+                if (pos > (end - start)) {
+                    return pos - (end - start);
+                }
+                return pos + start;
+            }, randomPosition);
+            question = `Which card is at position ${actualPosition}?`;
             correctAnswer = stack[randomPosition - 1];
             options = generateOptions(correctAnswer, stack);
             break;
@@ -71,7 +99,7 @@ function startQuiz(type) {
             cardImage.alt = randomCard;
             cardImage.style.height = '150px';
             question = [questionText, cardImage, document.createTextNode('?')];
-            correctAnswer = stack.indexOf(randomCard) + 1;
+            correctAnswer = fullStack.indexOf(randomCard) + 1;
             options = generatePositionOptions(correctAnswer, stack.length);
             break;
         case 'cut':
@@ -89,37 +117,40 @@ function startQuiz(type) {
 }
 
 function generateOptions(correctAnswer, stack) {
-    let options = [correctAnswer];
-    while (options.length < 4) {
+    const options = new Set();
+    options.add(correctAnswer);
+
+    while (options.size < 4) {
         const randomCard = stack[Math.floor(Math.random() * stack.length)];
-        if (!options.includes(randomCard)) {
-            options.push(randomCard);
-        }
+        options.add(randomCard);
     }
-    return shuffleArray(options);
+
+    return Array.from(options);
 }
 
 function generatePositionOptions(correctPosition, maxPosition) {
-    let options = [correctPosition];
-    while (options.length < 4) {
+    const options = new Set();
+    options.add(correctPosition);
+
+    while (options.size < 4) {
         const randomPosition = Math.floor(Math.random() * maxPosition) + 1;
-        if (!options.includes(randomPosition)) {
-            options.push(randomPosition);
-        }
+        options.add(randomPosition);
     }
-    return shuffleArray(options);
+
+    return Array.from(options);
 }
 
 function generateCutOptions(correctAnswer, stack) {
-    let options = [correctAnswer];
-    while (options.length < 4) {
+    const options = new Set();
+    options.add(correctAnswer);
+
+    while (options.size < 4) {
         const randomPosition = Math.floor(Math.random() * stack.length);
         const randomCard = stack[randomPosition];
-        if (!options.includes(randomCard)) {
-            options.push(randomCard);
-        }
+        options.add(randomCard);
     }
-    return shuffleArray(options);
+
+    return Array.from(options);
 }
 
 function calculateCutPoint(currentPos, targetPos, deckSize) {
@@ -228,5 +259,5 @@ function shuffleArray(array) {
 
 function loadSettings() {
     const settings = localStorage.getItem('memdeckSettings');
-    return settings ? JSON.parse(settings) : { stack: 'mnemonica', quizTypes: { position: true, card: true, cut: true } };
+    return settings ? JSON.parse(settings) : { stack: 'mnemonica', quizTypes: { position: true, card: true, cut: true }, deckPortions: { portion1: true, portion2: true, portion3: true, portion4: true } };
 }
